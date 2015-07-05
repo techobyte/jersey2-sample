@@ -5,6 +5,7 @@
 * Java JDK 7
 * Maven 3
 * Eclipse Luna
+* Tomcat 7
 * Jersey 2
 
 ### Create a maven application project
@@ -121,11 +122,76 @@ public class HelloWorldWS {
 }
 ```
 
+### Update web.xml with api pattern
+```xml
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+   version="3.0">
+   <display-name>Servlet 3.0 Web Application</display-name>
+   <servlet>
+      <servlet-name>j2sample</servlet-name>
+      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+      <init-param>
+         <param-name>javax.ws.rs.Application</param-name>
+         <param-value>com.techobyte.j2sample.Application</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>j2sample</servlet-name>
+      <url-pattern>/api/*</url-pattern>
+   </servlet-mapping>
+</web-app>
+```
+
+### Folder Structure
+```sh
+$ tree .
+j2sample/
+|-- pom.xml
+`-- src
+    `-- main
+        |-- java
+        |   `-- com
+        |       `-- techobyte
+        |           `-- j2sample
+        |               |-- Application.java
+        |               `-- HelloWorldWS.java
+        |-- resources
+        `-- webapp
+            |-- index.jsp
+            `-- WEB-INF
+                `-- web.xml
+```
+
+### Build/Compile
+```sh
+$ mvn clean install
+$ mvn package
+```
+
+### Run/Debug
+```sh
+$ mvn tomcat:run
+$ mvnDebug tomcat:run
+```
+
+### Verify Endpoint
+* Browse to http://localhost:8080/j2sample/api/helloworld
+OR
+* ```curl http://localhost:8080/j2sample/api/helloworld```
+
+### WADL Output
+http://localhost:8080/j2sample/api/application.wadl
+
 ## Links
 * [Java JDK 7]
 * [Maven Plugins]
+* [Tomcat 7]
 * [Jersey 2]
 
 [Java JDK 7]:http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
 [Maven Plugins]:https://maven.apache.org/plugins/index.html
 [Jersey 2]:https://jersey.java.net
+[Tomcat 7]:https://tomcat.apache.org/download-70.cgi
