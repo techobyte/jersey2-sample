@@ -218,7 +218,7 @@ public class Hello {
 
 ```
 
-#### Adding new Endpoint for JSON
+#### [JSON Support] Adding new Endpoint for JSON
 ```java
 package com.techobyte.j2sample;
 
@@ -253,7 +253,7 @@ public class HelloWorldWS {
 }
 ```
 
-#### Adding Jackson dependency
+#### [JSON Support] Adding Jackson dependency
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -283,7 +283,7 @@ public class HelloWorldWS {
 </project>
 ```
 
-#### Updating web.xml with new package
+#### [JSON Support] Updating web.xml with new package
 ```xml
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -309,6 +309,11 @@ public class HelloWorldWS {
    </servlet-mapping>
 </web-app>
 ```
+
+### [JSON Support] Verify Endpoint
+* Browse to http://localhost:8080/j2sample/api/helloworld/json
+OR
+* ```curl http://localhost:8080/j2sample/api/helloworld/json```
 
 ## Links
 * [Java JDK 7]
