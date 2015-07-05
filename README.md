@@ -1,4 +1,4 @@
-# Tutorial Jersey2 boiler plate code
+# Tutorial Jersey2 (Servlet 3.0) boiler plate code
 
 # Maven
 ### Pre-requisites
@@ -53,6 +53,46 @@ mvn archetype:generate -DgroupId=com.techobyte -DartifactId=j2sample -Darchetype
       <finalName>j2sample</finalName>
    </build>
 </project>
+```
+
+### Create java package
+* Make directory @ src/main/java
+* Add java package "com.techobyte.j2sample" under src/main/java
+
+### Add Application class under package
+*src/main/java/com/techobyte/j2sample/Application.java*
+```java
+package com.techobyte.j2sample;
+
+import org.glassfish.jersey.server.ResourceConfig;
+
+public class Application extends ResourceConfig {
+
+	public Application() {
+		packages(this.getClass().getPackage().getName());
+	}
+
+}
+```
+
+### Update web.xml with Application in ServletContainer
+```xml
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+   version="3.0">
+   <display-name>Servlet 3.0 Web Application</display-name>
+   <servlet>
+      <servlet-name>j2sample</servlet-name>
+      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+      <init-param>
+         <param-name>javax.ws.rs.Application</param-name>
+         <param-value>com.techobyte.j2sample.Application</param-value>
+      </init-param>
+   </servlet>
+</web-app>
+
 ```
 
 ## Links

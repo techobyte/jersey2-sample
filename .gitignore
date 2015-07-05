@@ -16,3 +16,9 @@ hs_err_pid*
 
 #Misc
 *.*~
+
+#Eclipse Files
+.classpath
+.settings/
+.project
+
