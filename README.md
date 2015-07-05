@@ -390,6 +390,82 @@ public class TestModelHello {
 Maven runs all test cases as part of build process.
 To skip test append ```-DskipTests=true```
 
+### [Optional] Adding Regression Tests using JerseyTest
+#### [Reg Tests Support] Adding Dependency
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.techobyte</groupId>
+   <artifactId>j2sample</artifactId>
+   <packaging>war</packaging>
+   <version>0.0.1</version>
+   <name>j2sample Maven Webapp</name>
+   <url>http://maven.apache.org</url>
+   <dependencies>
+      <dependency>
+         <groupId>org.glassfish.jersey.containers</groupId>
+         <artifactId>jersey-container-servlet</artifactId>
+         <version>2.19</version>
+      </dependency>
+      <dependency>
+         <groupId>com.fasterxml.jackson.jaxrs</groupId>
+         <artifactId>jackson-jaxrs-json-provider</artifactId>
+         <version>2.5.4</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.10</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+         <artifactId>jersey-test-framework-provider-jdk-http</artifactId>
+         <version>2.19</version>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+   <build>
+      <finalName>j2sample</finalName>
+   </build>
+</project>
+```
+
+#### [Reg Tests Support] Adding Regression Test
+```java
+package j2sample;
+
+import javax.ws.rs.core.Application;
+
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+public class TestRegHelloWorldWS extends JerseyTest {
+
+	public TestRegHelloWorldWS() {
+	}
+
+	@Override
+	protected Application configure() {
+		Application app = new ResourceConfig(com.techobyte.j2sample.HelloWorldWS.class);
+		return app;
+	}
+
+	@Test
+	public void test_GET_helloworld() throws Exception {
+		String actual = target("helloworld").request().get(String.class);
+		//System.out.println(actual);
+		assertThat(actual, is("Hello [message=Hello World]"));
+	}
+}
+```
+
 ## Links
 * [Java JDK 7]
 * [Maven Plugins]

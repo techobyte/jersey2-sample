@@ -5,7 +5,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class Application extends ResourceConfig {
 
 	public Application() {
-		packages(this.getClass().getPackage().getName());
+		register(HelloWorldWS.class);
+		packages(this.getClass().getPackage().getName(), "com.fasterxml.jackson.jaxrs.json");
 	}
 
 }
