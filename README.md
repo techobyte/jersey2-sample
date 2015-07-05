@@ -179,7 +179,6 @@ $ mvnDebug tomcat:run
 
 ### Verify Endpoint
 * Browse to http://localhost:8080/j2sample/api/helloworld
-OR
 * ```curl http://localhost:8080/j2sample/api/helloworld```
 
 ### WADL Output
@@ -310,9 +309,8 @@ public class HelloWorldWS {
 </web-app>
 ```
 
-### [JSON Support] Verify Endpoint
+#### [JSON Support] Verify Endpoint
 * Browse to http://localhost:8080/j2sample/api/helloworld/json
-OR
 * ```curl http://localhost:8080/j2sample/api/helloworld/json```
 
 ## Links
