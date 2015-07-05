@@ -36,8 +36,8 @@ mvn archetype:generate -DgroupId=com.techobyte -DartifactId=j2sample -Darchetype
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
-   <groupId>com.test</groupId>
-   <artifactId>restex</artifactId>
+   <groupId>com.techobyte</groupId>
+   <artifactId>j2sample</artifactId>
    <packaging>war</packaging>
    <version>0.0.1</version>
    <name>j2sample Maven Webapp</name>
