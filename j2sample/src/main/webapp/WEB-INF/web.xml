@@ -12,4 +12,8 @@
          <param-value>com.techobyte.j2sample.Application</param-value>
       </init-param>
    </servlet>
+   <servlet-mapping>
+      <servlet-name>j2sample</servlet-name>
+      <url-pattern>/api/*</url-pattern>
+   </servlet-mapping>
 </web-app>
