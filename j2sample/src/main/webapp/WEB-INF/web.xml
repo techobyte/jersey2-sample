@@ -11,6 +11,10 @@
          <param-name>javax.ws.rs.Application</param-name>
          <param-value>com.techobyte.j2sample.Application</param-value>
       </init-param>
+      <init-param>
+        <param-name>jersey.config.server.provider.packages</param-name>
+        <param-value>com.techobyte.j2sample, com.fasterxml.jackson.jaxrs.json</param-value>
+      </init-param>
    </servlet>
    <servlet-mapping>
       <servlet-name>j2sample</servlet-name>
