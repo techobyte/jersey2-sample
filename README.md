@@ -61,7 +61,7 @@ mvn archetype:generate -DgroupId=com.techobyte -DartifactId=j2sample -Darchetype
 * Add java package "com.techobyte.j2sample" under src/main/java
 
 ### Add Application class under package
-*src/main/java/com/techobyte/j2sample/Application.java*
+*./src/main/java/com/techobyte/j2sample/Application.java*
 ```java
 package com.techobyte.j2sample;
 
@@ -186,7 +186,7 @@ http://localhost:8080/j2sample/api/application.wadl
 
 ### [Optional] Adding JSON support using Jackson
 #### [JSON Support] Adding Model class
-*/src/main/java/com/techobyte/j2sample/model/Hello.java*
+*./src/main/java/com/techobyte/j2sample/model/Hello.java*
 ```java
 package com.techobyte.j2sample.model;
 
@@ -312,6 +312,83 @@ public class HelloWorldWS {
 #### [JSON Support] Verify Endpoint
 * Browse to http://localhost:8080/j2sample/api/helloworld/json
 * ```curl http://localhost:8080/j2sample/api/helloworld/json```
+
+### [Optional] Adding Unit Tests using JUnit
+#### [Unit Tests Support] Adding Dependency
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.techobyte</groupId>
+   <artifactId>j2sample</artifactId>
+   <packaging>war</packaging>
+   <version>0.0.1</version>
+   <name>j2sample Maven Webapp</name>
+   <url>http://maven.apache.org</url>
+   <dependencies>
+      <dependency>
+         <groupId>org.glassfish.jersey.containers</groupId>
+         <artifactId>jersey-container-servlet</artifactId>
+         <version>2.19</version>
+      </dependency>
+      <dependency>
+         <groupId>com.fasterxml.jackson.jaxrs</groupId>
+         <artifactId>jackson-jaxrs-json-provider</artifactId>
+         <version>2.5.4</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.10</version>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+   <build>
+      <finalName>j2sample</finalName>
+   </build>
+</project>
+```
+
+#### [Unit Tests Support] Creating Maven folder structure
+```sh
+mkdir ./src/test/java
+mkdir ./src/test/resources
+```
+
+#### [Unit Tests Support] Create Test Case
+*./src/test/java/j2sample/TestModelHello.java*
+```java
+package j2sample;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+import com.techobyte.j2sample.model.Hello;
+
+
+public class TestModelHello {
+
+	public TestModelHello() {
+	}
+
+	@Test
+	public void TestHelloDefault() {
+		Hello hello = new Hello();
+		assertEquals(hello.getMessage(), "Hello ");
+	}
+	
+	@Test
+	public void TestHelloWithParam() {
+		Hello hello = new Hello("World");
+		assertEquals(hello.getMessage(), "Hello World");
+	}
+}
+```
+
+#### [Unit Tests Support] Run
+Maven runs all test cases as part of build process.
+To skip test append ```-DskipTests=true```
 
 ## Links
 * [Java JDK 7]
