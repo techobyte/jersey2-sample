@@ -129,15 +129,7 @@ public class HelloWorldWS {
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
    version="3.0">
-   <display-name>Servlet 3.0 Web Application</display-name>
-   <servlet>
-      <servlet-name>j2sample</servlet-name>
-      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-      <init-param>
-         <param-name>javax.ws.rs.Application</param-name>
-         <param-value>com.techobyte.j2sample.Application</param-value>
-      </init-param>
-   </servlet>
+   ...
    <servlet-mapping>
       <servlet-name>j2sample</servlet-name>
       <url-pattern>/api/*</url-pattern>
@@ -257,28 +249,16 @@ public class HelloWorldWS {
 <project xmlns="http://maven.apache.org/POM/4.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>com.techobyte</groupId>
-   <artifactId>j2sample</artifactId>
-   <packaging>war</packaging>
-   <version>0.0.1</version>
-   <name>j2sample Maven Webapp</name>
-   <url>http://maven.apache.org</url>
+   ...
    <dependencies>
-      <dependency>
-         <groupId>org.glassfish.jersey.containers</groupId>
-         <artifactId>jersey-container-servlet</artifactId>
-         <version>2.19</version>
-      </dependency>
+      ...
       <dependency>
          <groupId>com.fasterxml.jackson.jaxrs</groupId>
          <artifactId>jackson-jaxrs-json-provider</artifactId>
          <version>2.5.4</version>
       </dependency>
    </dependencies>
-   <build>
-      <finalName>j2sample</finalName>
-   </build>
+   ...
 </project>
 ```
 
@@ -289,23 +269,15 @@ public class HelloWorldWS {
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
    version="3.0">
-   <display-name>Servlet 3.0 Web Application</display-name>
+   ...
    <servlet>
-      <servlet-name>j2sample</servlet-name>
-      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-      <init-param>
-         <param-name>javax.ws.rs.Application</param-name>
-         <param-value>com.techobyte.j2sample.Application</param-value>
-      </init-param>
+      ...
       <init-param>
         <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>com.techobyte.j2sample, com.fasterxml.jackson.jaxrs.json</param-value>
       </init-param>
    </servlet>
-   <servlet-mapping>
-      <servlet-name>j2sample</servlet-name>
-      <url-pattern>/api/*</url-pattern>
-   </servlet-mapping>
+   ...
 </web-app>
 ```
 
@@ -319,24 +291,9 @@ public class HelloWorldWS {
 <project xmlns="http://maven.apache.org/POM/4.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>com.techobyte</groupId>
-   <artifactId>j2sample</artifactId>
-   <packaging>war</packaging>
-   <version>0.0.1</version>
-   <name>j2sample Maven Webapp</name>
-   <url>http://maven.apache.org</url>
+   ...
    <dependencies>
-      <dependency>
-         <groupId>org.glassfish.jersey.containers</groupId>
-         <artifactId>jersey-container-servlet</artifactId>
-         <version>2.19</version>
-      </dependency>
-      <dependency>
-         <groupId>com.fasterxml.jackson.jaxrs</groupId>
-         <artifactId>jackson-jaxrs-json-provider</artifactId>
-         <version>2.5.4</version>
-      </dependency>
+      ...
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
@@ -344,9 +301,7 @@ public class HelloWorldWS {
          <scope>test</scope>
       </dependency>
    </dependencies>
-   <build>
-      <finalName>j2sample</finalName>
-   </build>
+   ...
 </project>
 ```
 
@@ -396,30 +351,9 @@ To skip test append ```-DskipTests=true```
 <project xmlns="http://maven.apache.org/POM/4.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>com.techobyte</groupId>
-   <artifactId>j2sample</artifactId>
-   <packaging>war</packaging>
-   <version>0.0.1</version>
-   <name>j2sample Maven Webapp</name>
-   <url>http://maven.apache.org</url>
+   ...
    <dependencies>
-      <dependency>
-         <groupId>org.glassfish.jersey.containers</groupId>
-         <artifactId>jersey-container-servlet</artifactId>
-         <version>2.19</version>
-      </dependency>
-      <dependency>
-         <groupId>com.fasterxml.jackson.jaxrs</groupId>
-         <artifactId>jackson-jaxrs-json-provider</artifactId>
-         <version>2.5.4</version>
-      </dependency>
-      <dependency>
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-         <version>4.10</version>
-         <scope>test</scope>
-      </dependency>
+      ...
       <dependency>
          <groupId>org.glassfish.jersey.test-framework.providers</groupId>
          <artifactId>jersey-test-framework-provider-jdk-http</artifactId>
@@ -427,9 +361,7 @@ To skip test append ```-DskipTests=true```
          <scope>test</scope>
       </dependency>
    </dependencies>
-   <build>
-      <finalName>j2sample</finalName>
-   </build>
+   ...
 </project>
 ```
 
@@ -466,13 +398,100 @@ public class TestRegHelloWorldWS extends JerseyTest {
 }
 ```
 
+### [Optional] Adding Logging support using Log4j
+#### [Logging Support] Adding Dependency
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   ...
+   <dependencies>
+      ...
+      <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-api</artifactId>
+         <version>2.3</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-core</artifactId>
+         <version>2.3</version>
+      </dependency>
+   </dependencies>
+   ...
+</project>
+```
+
+#### [Logging Support] Adding Config
+*./src/main/resources/log4j2.xml*
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>
+```
+
+#### [Logging Support] Adding Code
+```java
+package com.techobyte.j2sample;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+import com.techobyte.j2sample.model.Hello;
+
+@Path("/helloworld")
+public class HelloWorldWS {
+	final static Logger logger = LogManager.getLogger(HelloWorldWS.class);
+
+	private Hello hello;
+	
+	public HelloWorldWS() {
+		hello = new Hello("World");
+	}
+	
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response getHWText() {
+		logger.info("TEXT: "+this.hello.toString());
+		return Response.ok(this.hello.toString()).build();
+	}
+	
+	@GET
+	@Path("/json")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Hello getHWJson() {
+		logger.info("JSON: "+this.hello.toString());
+		return this.hello;
+	}
+}
+```
+
 ## Links
 * [Java JDK 7]
 * [Maven Plugins]
 * [Tomcat 7]
 * [Jersey 2]
+* [Log4j 2]
 
 [Java JDK 7]:http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
 [Maven Plugins]:https://maven.apache.org/plugins/index.html
 [Jersey 2]:https://jersey.java.net
 [Tomcat 7]:https://tomcat.apache.org/download-70.cgi
+[Log4j 2]:http://logging.apache.org/log4j/2.x/
