@@ -773,6 +773,43 @@ public class HelloWorldWS {
 }
 ```
 
+## Folder Structure
+```sh
+$ tree j2sample
+j2sample
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── techobyte
+    │   │           └── j2sample
+    │   │               ├── Application.java
+    │   │               ├── HelloWorldWS.java
+    │   │               ├── dao
+    │   │               │   ├── DBConnectionFactory.java
+    │   │               │   └── UserDAO.java
+    │   │               ├── mapper
+    │   │               │   ├── UserMapper.java
+    │   │               │   └── UserMapper.xml
+    │   │               └── model
+    │   │                   ├── Hello.java
+    │   │                   └── User.java
+    │   ├── resources
+    │   │   ├── jdbc.properties
+    │   │   ├── log4j2.xml
+    │   │   └── mybatis-config.xml
+    │   └── webapp
+    │       ├── WEB-INF
+    │       │   └── web.xml
+    │       └── index.jsp
+    └── test
+        └── java
+            └── j2sample
+                ├── TestModelHello.java
+                └── TestRegHelloWorldWS.java
+```
+
 ## Links
 * [Java JDK 7]
 * [Maven Plugins]
