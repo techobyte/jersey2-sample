@@ -666,14 +666,10 @@ public class User {
 package com.techobyte.j2sample.mapper;
 
 import java.util.List;
-
 import com.techobyte.j2sample.model.User;
 
-
 public interface UserMapper {
-
   public List<User> getAllUsers();
-  
   public User getUserById(Integer id);
 }
 ```
@@ -783,9 +779,11 @@ public class HelloWorldWS {
 * [Tomcat 7]
 * [Jersey 2]
 * [Log4j 2]
+* [MyBatis 3]
 
 [Java JDK 7]:http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
 [Maven Plugins]:https://maven.apache.org/plugins/index.html
 [Jersey 2]:https://jersey.java.net
 [Tomcat 7]:https://tomcat.apache.org/download-70.cgi
 [Log4j 2]:http://logging.apache.org/log4j/2.x/
+[MyBatis 3]:https://mybatis.github.io/mybatis-3/
