@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.techobyte.j2sample.mapper.UserMapper">
+   <resultMap id="resmapUser" type="User">
+      <result property="userId" column="UserId_int" />
+      <result property="userLogin" column="UserLogin_vchr" />
+      <!--result property="userPwd" column="UserPassword_vchr" />
+      <result property="userPwdSHA256" column="UserPasswordSHA256_vchr" /-->
+      <result property="userFirstName" column="UserFirstName_vchr" />
+      <result property="userLastName" column="UserLastName_vchr" />
+      <result property="userEmail" column="UserEMail_vchr" />
+      <result property="userRole" column="UserRole_enm" />
+   </resultMap>
+   
+   <select id="getAllUsers" resultMap="resmapUser">
+      SELECT * FROM User
+   </select>
+
+   <select id="getUserById" parameterType="int" resultMap="resmapUser">
+      SELECT * FROM User WHERE UserId_int = #{id}
+   </select>
+</mapper>

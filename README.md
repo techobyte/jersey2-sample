@@ -483,6 +483,300 @@ public class HelloWorldWS {
 }
 ```
 
+
+### [Optional] Adding ORM using MyBatis
+#### [ORM Support] Adding Dependency
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   ...
+   <dependencies>
+      ...
+      <dependency>
+         <groupId>org.mybatis</groupId>
+         <artifactId>mybatis</artifactId>
+         <version>3.3.0</version>
+      </dependency>
+      <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+         <version>5.1.36</version>
+         <scope>runtime</scope>
+      </dependency>
+   </dependencies>
+   <build>
+      <finalName>j2sample</finalName>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+               <source>1.7</source>
+               <target>1.7</target>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>
+```
+
+#### [ORM Support] Adding mybatis config files
+*./src/main/resources/jdbc.properties*
+```properties
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/test
+jdbc.username=root
+jdbc.password=
+```
+
+*./src/main/resources/mybatis-config.xml*
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+   <properties resource='jdbc.properties' />
+   <typeAliases>
+      <typeAlias alias="User" type="com.techobyte.j2sample.model.User" />
+   </typeAliases>
+   <environments default="development">
+      <environment id="development">
+         <transactionManager type="JDBC" />
+         <dataSource type="POOLED">
+            <property name='driver' value='${jdbc.driver}' />
+            <property name='url' value='${jdbc.url}' />
+            <property name='username' value='${jdbc.username}' />
+            <property name='password' value='${jdbc.password}' />
+         </dataSource>
+      </environment>
+   </environments>
+   <mappers>
+      <mapper resource="com/techobyte/j2sample/mapper/UserMapper.xml" />
+   </mappers>
+</configuration>
+```
+
+#### [ORM Support] Adding Model Class
+*./src/main/java/com/techobyte/j2sample/model/User.java*
+```java
+package com.techobyte.j2sample.model;
+
+public class User {
+  private Integer userId;
+  private String userLogin;
+
+  private String userFirstName;
+  private String userLastName;
+  private String userEmail;
+  private String userRole;
+  
+  public User() {
+    super();
+  }
+
+  public Integer getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
+
+  public String getUserLogin() {
+    return userLogin;
+  }
+
+  public void setUserLogin(String userLogin) {
+    this.userLogin = userLogin;
+  }
+
+  public String getUserFirstName() {
+    return userFirstName;
+  }
+
+  public void setUserFirstName(String userFirstName) {
+    this.userFirstName = userFirstName;
+  }
+
+  public String getUserLastName() {
+    return userLastName;
+  }
+
+  public void setUserLastName(String userLastName) {
+    this.userLastName = userLastName;
+  }
+
+  public String getUserEmail() {
+    return userEmail;
+  }
+
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
+
+  public String getUserRole() {
+    return userRole;
+  }
+
+  public void setUserRole(String userRole) {
+    this.userRole = userRole;
+  }
+  
+  @Override
+  public String toString() {
+    return "User [userId=" + userId + ", userLogin=" + userLogin + "]";
+  }
+}
+```
+
+#### [ORM Support] Adding mapper Files
+*./src/main/java/com/techobyte/j2sample/mapper/UserMapper.xml*
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.techobyte.j2sample.mapper.UserMapper">
+   <resultMap id="resmapUser" type="User">
+      <result property="userId" column="UserId_int" />
+      <result property="userLogin" column="UserLogin_vchr" />
+      <result property="userFirstName" column="UserFirstName_vchr" />
+      <result property="userLastName" column="UserLastName_vchr" />
+      <result property="userEmail" column="UserEMail_vchr" />
+      <result property="userRole" column="UserRole_enm" />
+   </resultMap>
+   
+   <select id="getAllUsers" resultMap="resmapUser">
+      SELECT * FROM User
+   </select>
+
+   <select id="getUserById" parameterType="int" resultMap="resmapUser">
+      SELECT * FROM User WHERE UserId_int = #{id}
+   </select>
+</mapper>
+```
+
+*./src/main/java/com/techobyte/j2sample/mapper/UserMapper.java*
+```java
+package com.techobyte.j2sample.mapper;
+
+import java.util.List;
+
+import com.techobyte.j2sample.model.User;
+
+
+public interface UserMapper {
+
+  public List<User> getAllUsers();
+  
+  public User getUserById(Integer id);
+}
+```
+
+#### [ORM Support] Adding DAO Classes
+*./src/main/java/com/techobyte/j2sample/dao/DBConnectionFactory.java*
+```java
+package com.techobyte.j2sample.dao;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class DBConnectionFactory {
+  private static SqlSessionFactory sqlSessionFactory;
+  static {
+    try {
+      String resource = "mybatis-config.xml";
+      Reader reader = Resources.getResourceAsReader(resource);
+      if (sqlSessionFactory == null) {
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+      }
+    }
+    catch (FileNotFoundException fileNotFoundException) {
+      fileNotFoundException.printStackTrace();
+    } catch (IOException iOException) {
+      iOException.printStackTrace();
+    }
+  }
+
+  public static SqlSessionFactory getSqlSessionFactory() {
+    return sqlSessionFactory;
+  }
+}
+```
+
+*./src/main/java/com/techobyte/j2sample/dao/UserDAO.java*
+```java
+package com.techobyte.j2sample.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.techobyte.j2sample.mapper.UserMapper;
+import com.techobyte.j2sample.model.User;
+
+
+public class UserDAO {
+  protected SqlSessionFactory sqlSessionFactory;
+  
+  public UserDAO() {
+    sqlSessionFactory = DBConnectionFactory.getSqlSessionFactory();
+  }
+
+  public List<User> selectAll() {
+    SqlSession session = sqlSessionFactory.openSession();
+    try { 
+      com.techobyte.j2sample.mapper.UserMapper userMapper = session.getMapper(UserMapper.class);
+      return userMapper.getAllUsers();
+    } finally {
+      session.close();
+    }
+  }
+  
+  public User selectById(Integer id){
+    SqlSession session = sqlSessionFactory.openSession();
+    
+    try {
+      UserMapper userMapper = session.getMapper(UserMapper.class);
+      return userMapper.getUserById(id);
+    } finally {
+      session.close();
+    }
+  }
+}
+```
+
+#### [ORM Support] Adding to endpoint
+```java
+package com.techobyte.j2sample;
+
+...
+import com.techobyte.j2sample.model.User;
+
+@Path("/helloworld")
+public class HelloWorldWS {
+  ...
+  @GET
+  @Path("/users")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<User> getAllUsers() {
+    UserDAO daoUser = new UserDAO();
+    return daoUser.selectAll();
+  }
+}
+```
+
 ## Links
 * [Java JDK 7]
 * [Maven Plugins]
